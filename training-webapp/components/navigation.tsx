@@ -17,14 +17,12 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Workouts", href: "/workouts", icon: Dumbbell },
-  { name: "Calendar", href: "/calendar", icon: Calendar },
-  { name: "Periodization", href: "/periodization", icon: Target },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Zones", href: "/zones", icon: Gauge },
-  { name: "Metrics", href: "/metrics", icon: LineChart },
-  { name: "Notes", href: "/notes", icon: FileText },
-  { name: "Plans", href: "/plans", icon: Layers },
+  { name: "Trainings", href: "/workouts", icon: Dumbbell },
+  { name: "Kalender", href: "/calendar", icon: Calendar },
+  { name: "Periodisierung", href: "/periodization", icon: Target },
+  { name: "Metriken", href: "/metrics", icon: LineChart },
+  { name: "Notizen", href: "/notes", icon: FileText },
+  { name: "Pläne", href: "/plans", icon: Layers },
 ];
 
 export function Navigation() {

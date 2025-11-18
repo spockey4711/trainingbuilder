@@ -16,11 +16,11 @@ const PHASE_COLORS: Record<string, string> = {
 };
 
 const PHASE_LABELS: Record<string, string> = {
-  base: "Base",
-  build: "Build",
-  peak: "Peak",
+  base: "Basis",
+  build: "Aufbau",
+  peak: "Spitze",
   taper: "Taper",
-  recovery: "Recovery",
+  recovery: "Erholung",
 };
 
 export default async function PeriodizationPage() {
@@ -49,15 +49,15 @@ export default async function PeriodizationPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Periodization</h1>
+          <h1 className="text-3xl font-bold">Periodisierung</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            Manage macro, meso, and micro training cycles
+            Verwalte Makro-, Meso- und Mikro-Trainingszyklen
           </p>
         </div>
         <Link href="/periodization/new">
           <Button>
             <Plus className="mr-2 h-4 w-4" />
-            New Cycle
+            Neuer Zyklus
           </Button>
         </Link>
       </div>
@@ -66,8 +66,8 @@ export default async function PeriodizationPage() {
       <div className="grid gap-6 md:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Active Macro Cycle</CardTitle>
-            <CardDescription>12-24 week season planning</CardDescription>
+            <CardTitle className="text-base">Aktiver Makrozyklus</CardTitle>
+            <CardDescription>12-24 Wochen Saisonplanung</CardDescription>
           </CardHeader>
           <CardContent>
             {activeMacro ? (
@@ -88,13 +88,13 @@ export default async function PeriodizationPage() {
                     />
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
-                    {Math.round(getProgress(activeMacro))}% complete
+                    {Math.round(getProgress(activeMacro))}% abgeschlossen
                   </div>
                 </div>
               </div>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                No active macro cycle
+                Kein aktiver Makrozyklus
               </p>
             )}
           </CardContent>
@@ -102,8 +102,8 @@ export default async function PeriodizationPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Active Meso Cycle</CardTitle>
-            <CardDescription>3-6 week training block</CardDescription>
+            <CardTitle className="text-base">Aktiver Mesozyklus</CardTitle>
+            <CardDescription>3-6 Wochen Trainingsblock</CardDescription>
           </CardHeader>
           <CardContent>
             {activeMeso ? (
@@ -124,13 +124,13 @@ export default async function PeriodizationPage() {
                     />
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
-                    {Math.round(getProgress(activeMeso))}% complete
+                    {Math.round(getProgress(activeMeso))}% abgeschlossen
                   </div>
                 </div>
               </div>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                No active meso cycle
+                Kein aktiver Mesozyklus
               </p>
             )}
           </CardContent>
@@ -138,8 +138,8 @@ export default async function PeriodizationPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Active Micro Cycle</CardTitle>
-            <CardDescription>This week's structure</CardDescription>
+            <CardTitle className="text-base">Aktiver Mikrozyklus</CardTitle>
+            <CardDescription>Wochenstruktur</CardDescription>
           </CardHeader>
           <CardContent>
             {activeMicro ? (
@@ -160,13 +160,13 @@ export default async function PeriodizationPage() {
                     />
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
-                    {Math.round(getProgress(activeMicro))}% complete
+                    {Math.round(getProgress(activeMicro))}% abgeschlossen
                   </div>
                 </div>
               </div>
             ) : (
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                No active micro cycle
+                Kein aktiver Mikrozyklus
               </p>
             )}
           </CardContent>

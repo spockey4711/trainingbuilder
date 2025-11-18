@@ -13,9 +13,9 @@ import type { SportType, TrainingCycle } from "@/types";
 import { format } from "date-fns";
 
 const SPORT_OPTIONS: { value: SportType; label: string; color: string }[] = [
-  { value: "swim", label: "Swim", color: "bg-swim" },
-  { value: "bike", label: "Bike", color: "bg-bike" },
-  { value: "run", label: "Run", color: "bg-run" },
+  { value: "swim", label: "Schwimmen", color: "bg-swim" },
+  { value: "bike", label: "Radfahren", color: "bg-bike" },
+  { value: "run", label: "Laufen", color: "bg-run" },
   { value: "hockey", label: "Hockey", color: "bg-hockey" },
   { value: "gym", label: "Gym", color: "bg-gym" },
 ];
@@ -78,13 +78,13 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
       {/* Basic Info */}
       <Card>
         <CardHeader>
-          <CardTitle>Workout Details</CardTitle>
-          <CardDescription>Basic information about your training session</CardDescription>
+          <CardTitle>Trainingsdetails</CardTitle>
+          <CardDescription>Grundlegende Informationen zu deiner Trainingseinheit</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="sportType">Sport</Label>
+              <Label htmlFor="sportType">Sportart</Label>
               <Select
                 id="sportType"
                 name="sportType"
@@ -101,7 +101,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="date">Date</Label>
+              <Label htmlFor="date">Datum</Label>
               <Input
                 id="date"
                 name="date"
@@ -141,7 +141,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
 
             {(sportType === "swim" || sportType === "bike" || sportType === "run") && (
               <div className="space-y-2">
-                <Label htmlFor="distance">Distance (km)</Label>
+                <Label htmlFor="distance">Distanz (km)</Label>
                 <Input
                   id="distance"
                   name="distance"
@@ -180,13 +180,13 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
       {(sportType === "swim" || sportType === "bike" || sportType === "run") && (
         <Card>
           <CardHeader>
-            <CardTitle>Performance Metrics</CardTitle>
-            <CardDescription>Track your pace, heart rate, and training stress</CardDescription>
+            <CardTitle>Leistungsmetriken</CardTitle>
+            <CardDescription>Erfasse dein Tempo, Herzfrequenz und Trainingsstress</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-3">
               <div className="space-y-2">
-                <Label htmlFor="pace">Pace (min/km)</Label>
+                <Label htmlFor="pace">Tempo (Min/km)</Label>
                 <Input
                   id="pace"
                   name="pace"
@@ -198,7 +198,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="avgHeartRate">Avg Heart Rate</Label>
+                <Label htmlFor="avgHeartRate">Ø Herzfrequenz</Label>
                 <Input
                   id="avgHeartRate"
                   name="avgHeartRate"
@@ -210,7 +210,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="maxHeartRate">Max Heart Rate</Label>
+                <Label htmlFor="maxHeartRate">Max Herzfrequenz</Label>
                 <Input
                   id="maxHeartRate"
                   name="maxHeartRate"
@@ -225,7 +225,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
             <div className="grid gap-4 md:grid-cols-2">
               {sportType === "bike" && (
                 <div className="space-y-2">
-                  <Label htmlFor="power">Power (watts)</Label>
+                  <Label htmlFor="power">Leistung (Watt)</Label>
                   <Input
                     id="power"
                     name="power"
@@ -254,13 +254,13 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
       {sportType === "hockey" && (
         <Card>
           <CardHeader>
-            <CardTitle>Hockey Metrics</CardTitle>
-            <CardDescription>Field time, drills, and conditioning</CardDescription>
+            <CardTitle>Hockey Metriken</CardTitle>
+            <CardDescription>Spielfeldzeit, Übungen und Konditionierung</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="fieldTime">Field Time (minutes)</Label>
+                <Label htmlFor="fieldTime">Spielfeldzeit (Minuten)</Label>
                 <Input
                   id="fieldTime"
                   name="fieldTime"
@@ -271,7 +271,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="sprintCount">Sprint Count</Label>
+                <Label htmlFor="sprintCount">Sprint-Anzahl</Label>
                 <Input
                   id="sprintCount"
                   name="sprintCount"
@@ -283,11 +283,11 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="drillTypes">Drill Types (comma-separated)</Label>
+              <Label htmlFor="drillTypes">Übungstypen (durch Komma getrennt)</Label>
               <Input
                 id="drillTypes"
                 name="drillTypes"
-                placeholder="stick work, passing, shooting"
+                placeholder="Schlägerarbeit, Passen, Schießen"
               />
             </div>
           </CardContent>
@@ -297,14 +297,14 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
       {sportType === "gym" && (
         <Card>
           <CardHeader>
-            <CardTitle>Exercises</CardTitle>
-            <CardDescription>Log your strength training exercises</CardDescription>
+            <CardTitle>Übungen</CardTitle>
+            <CardDescription>Protokolliere deine Krafttrainingsübungen</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {exercises.map((exercise, index) => (
               <div key={index} className="p-4 border rounded-lg space-y-4">
                 <div className="flex justify-between items-center">
-                  <h4 className="font-medium">Exercise {index + 1}</h4>
+                  <h4 className="font-medium">Übung {index + 1}</h4>
                   {exercises.length > 1 && (
                     <Button
                       type="button"
@@ -312,23 +312,23 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
                       size="sm"
                       onClick={() => handleRemoveExercise(index)}
                     >
-                      Remove
+                      Entfernen
                     </Button>
                   )}
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2 md:col-span-2">
-                    <Label>Exercise Name</Label>
+                    <Label>Übungsname</Label>
                     <Input
                       value={exercise.name}
                       onChange={(e) => handleExerciseChange(index, "name", e.target.value)}
-                      placeholder="Bench Press"
+                      placeholder="Bankdrücken"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Sets</Label>
+                    <Label>Sätze</Label>
                     <Input
                       type="number"
                       min="0"
@@ -339,7 +339,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Reps</Label>
+                    <Label>Wiederholungen</Label>
                     <Input
                       type="number"
                       min="0"
@@ -350,7 +350,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
                   </div>
 
                   <div className="space-y-2 md:col-span-2">
-                    <Label>Weight (kg)</Label>
+                    <Label>Gewicht (kg)</Label>
                     <Input
                       type="number"
                       step="0.5"
@@ -365,7 +365,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
             ))}
 
             <Button type="button" variant="outline" onClick={handleAddExercise} className="w-full">
-              + Add Exercise
+              + Übung hinzufügen
             </Button>
           </CardContent>
         </Card>
@@ -374,12 +374,12 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
       {/* Post-Training Notes */}
       <Card>
         <CardHeader>
-          <CardTitle>Post-Training Notes</CardTitle>
-          <CardDescription>Reflect on your session and track your learnings</CardDescription>
+          <CardTitle>Trainingsnotizen</CardTitle>
+          <CardDescription>Reflektiere deine Einheit und halte deine Erkenntnisse fest</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="rpe">RPE - Rate of Perceived Exertion (1-10)</Label>
+            <Label htmlFor="rpe">RPE - Wahrgenommene Anstrengung (1-10)</Label>
             <Input
               id="rpe"
               name="rpe"
@@ -388,67 +388,67 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
               max="10"
               placeholder="7"
             />
-            <p className="text-xs text-gray-500">1 = Very easy, 10 = Maximum effort</p>
+            <p className="text-xs text-gray-500">1 = Sehr leicht, 10 = Maximale Anstrengung</p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="feeling">How did it feel?</Label>
+            <Label htmlFor="feeling">Wie hat es sich angefühlt?</Label>
             <Textarea
               id="feeling"
               name="feeling"
-              placeholder="Felt strong throughout, good energy..."
+              placeholder="Fühlte mich stark, gute Energie..."
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="whatWentWell">What went well?</Label>
+            <Label htmlFor="whatWentWell">Was lief gut?</Label>
             <Textarea
               id="whatWentWell"
               name="whatWentWell"
-              placeholder="Maintained pace, good form..."
+              placeholder="Tempo gehalten, gute Form..."
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="whatToAdjust">What to adjust next time?</Label>
+            <Label htmlFor="whatToAdjust">Was beim nächsten Mal anpassen?</Label>
             <Textarea
               id="whatToAdjust"
               name="whatToAdjust"
-              placeholder="Start slower, focus on breathing..."
+              placeholder="Langsamer starten, auf Atmung achten..."
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="physicalSensations">Physical sensations (fatigue, soreness, energy)</Label>
+            <Label htmlFor="physicalSensations">Körperliche Empfindungen (Müdigkeit, Muskelkater, Energie)</Label>
             <Textarea
               id="physicalSensations"
               name="physicalSensations"
-              placeholder="Slight leg fatigue, felt energized..."
+              placeholder="Leichte Beinmüdigkeit, fühlte mich energiegeladen..."
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="mentalNotes">Mental notes (focus, motivation)</Label>
+            <Label htmlFor="mentalNotes">Mentale Notizen (Fokus, Motivation)</Label>
             <Textarea
               id="mentalNotes"
               name="mentalNotes"
-              placeholder="Great focus, motivated throughout..."
+              placeholder="Guter Fokus, durchgehend motiviert..."
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tags">Tags (comma-separated)</Label>
+            <Label htmlFor="tags">Tags (durch Komma getrennt)</Label>
             <Input
               id="tags"
               name="tags"
-              placeholder="good session, breakthrough, struggled"
+              placeholder="gute Einheit, Durchbruch, anstrengend"
             />
-            <p className="text-xs text-gray-500">Examples: good session, struggled, breakthrough, tired</p>
+            <p className="text-xs text-gray-500">Beispiele: gute Einheit, anstrengend, Durchbruch, müde</p>
           </div>
         </CardContent>
       </Card>
@@ -461,7 +461,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
 
       <div className="flex gap-4">
         <Button type="submit" disabled={loading} className="flex-1">
-          {loading ? "Saving..." : "Save Workout"}
+          {loading ? "Speichern..." : "Training speichern"}
         </Button>
         <Button
           type="button"
@@ -469,7 +469,7 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
           onClick={() => router.back()}
           disabled={loading}
         >
-          Cancel
+          Abbrechen
         </Button>
       </div>
     </form>

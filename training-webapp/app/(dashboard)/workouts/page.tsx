@@ -11,15 +11,15 @@ export default async function WorkoutsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Workouts</h1>
+          <h1 className="text-3xl font-bold">Trainings</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            Log and track your training sessions
+            Protokolliere und verfolge deine Trainingseinheiten
           </p>
         </div>
         <Link href="/workouts/new">
           <Button>
             <Plus className="mr-2 h-4 w-4" />
-            New Workout
+            Neues Training
           </Button>
         </Link>
       </div>
