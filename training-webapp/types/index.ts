@@ -103,12 +103,17 @@ export interface WeeklyStructure {
 
 export interface DayPlan {
   day: number;
+  workouts: WorkoutPlan[];
+  is_rest_day: boolean;
+}
+
+export interface WorkoutPlan {
   sport_type?: SportType;
   workout_type: string;
   target_duration?: number;
   target_distance?: number;
   intensity?: string;
-  is_rest_day: boolean;
+  time?: string; // Optional time for ordering multiple workouts
 }
 
 export interface Metric {

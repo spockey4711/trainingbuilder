@@ -9,8 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createTrainingPlan } from "@/lib/actions/plans";
-import { Plus, Trash2 } from "lucide-react";
-import type { SportType, TrainingCycle, DayPlan } from "@/types";
+import { Plus, Trash2, X } from "lucide-react";
+import type { SportType, TrainingCycle, DayPlan, WorkoutPlan } from "@/types";
 
 const SPORT_OPTIONS: { value: SportType; label: string }[] = [
   { value: "swim", label: "Swim" },
@@ -36,12 +36,8 @@ export function PlanForm({ cycles = [] }: PlanFormProps) {
   const [weeklyPlans, setWeeklyPlans] = useState<DayPlan[][]>([
     Array(7).fill(null).map((_, day) => ({
       day: day + 1,
+      workouts: [],
       is_rest_day: true,
-      workout_type: "",
-      sport_type: undefined,
-      target_duration: undefined,
-      target_distance: undefined,
-      intensity: "",
     }))
   ]);
 
@@ -51,12 +47,8 @@ export function PlanForm({ cycles = [] }: PlanFormProps) {
       ...weeklyPlans,
       Array(7).fill(null).map((_, day) => ({
         day: day + 1,
+        workouts: [],
         is_rest_day: true,
-        workout_type: "",
-        sport_type: undefined,
-        target_duration: undefined,
-        target_distance: undefined,
-        intensity: "",
       }))
     ]);
   };
@@ -66,22 +58,55 @@ export function PlanForm({ cycles = [] }: PlanFormProps) {
     setWeeklyPlans(weeklyPlans.filter((_, i) => i !== weekIndex));
   };
 
-  const handleDayChange = (weekIndex: number, dayIndex: number, field: keyof DayPlan, value: any) => {
+  const handleToggleRestDay = (weekIndex: number, dayIndex: number) => {
     const updated = [...weeklyPlans];
+    const isCurrentlyRest = updated[weekIndex][dayIndex].is_rest_day;
+
     updated[weekIndex][dayIndex] = {
       ...updated[weekIndex][dayIndex],
-      [field]: value,
+      is_rest_day: !isCurrentlyRest,
+      workouts: !isCurrentlyRest ? [] : [{ workout_type: "", sport_type: undefined, intensity: "" }],
     };
 
-    // If toggling rest day, clear other fields
-    if (field === "is_rest_day" && value === true) {
-      updated[weekIndex][dayIndex].sport_type = undefined;
-      updated[weekIndex][dayIndex].workout_type = "";
-      updated[weekIndex][dayIndex].target_duration = undefined;
-      updated[weekIndex][dayIndex].target_distance = undefined;
-      updated[weekIndex][dayIndex].intensity = "";
+    setWeeklyPlans(updated);
+  };
+
+  const handleAddWorkout = (weekIndex: number, dayIndex: number) => {
+    const updated = [...weeklyPlans];
+    updated[weekIndex][dayIndex].workouts.push({
+      workout_type: "",
+      sport_type: undefined,
+      intensity: "",
+    });
+    setWeeklyPlans(updated);
+  };
+
+  const handleRemoveWorkout = (weekIndex: number, dayIndex: number, workoutIndex: number) => {
+    const updated = [...weeklyPlans];
+    updated[weekIndex][dayIndex].workouts = updated[weekIndex][dayIndex].workouts.filter(
+      (_, i) => i !== workoutIndex
+    );
+
+    // If no workouts left, make it a rest day
+    if (updated[weekIndex][dayIndex].workouts.length === 0) {
+      updated[weekIndex][dayIndex].is_rest_day = true;
     }
 
+    setWeeklyPlans(updated);
+  };
+
+  const handleWorkoutChange = (
+    weekIndex: number,
+    dayIndex: number,
+    workoutIndex: number,
+    field: keyof WorkoutPlan,
+    value: any
+  ) => {
+    const updated = [...weeklyPlans];
+    updated[weekIndex][dayIndex].workouts[workoutIndex] = {
+      ...updated[weekIndex][dayIndex].workouts[workoutIndex],
+      [field]: value,
+    };
     setWeeklyPlans(updated);
   };
 
@@ -187,9 +212,7 @@ export function PlanForm({ cycles = [] }: PlanFormProps) {
                       type="checkbox"
                       id={`rest-${weekIndex}-${dayIndex}`}
                       checked={day.is_rest_day}
-                      onChange={(e) =>
-                        handleDayChange(weekIndex, dayIndex, "is_rest_day", e.target.checked)
-                      }
+                      onChange={() => handleToggleRestDay(weekIndex, dayIndex)}
                       className="rounded"
                     />
                     <Label htmlFor={`rest-${weekIndex}-${dayIndex}`} className="text-sm">
@@ -199,70 +222,152 @@ export function PlanForm({ cycles = [] }: PlanFormProps) {
                 </div>
 
                 {!day.is_rest_day && (
-                  <div className="grid gap-3 md:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label className="text-sm">Sport</Label>
-                      <Select
-                        value={day.sport_type || ""}
-                        onChange={(e) =>
-                          handleDayChange(weekIndex, dayIndex, "sport_type", e.target.value as SportType)
-                        }
+                  <div className="space-y-3">
+                    {day.workouts.map((workout, workoutIndex) => (
+                      <div
+                        key={workoutIndex}
+                        className="p-3 bg-gray-50 dark:bg-gray-900 rounded space-y-3"
                       >
-                        <option value="">Select sport...</option>
-                        {SPORT_OPTIONS.map((sport) => (
-                          <option key={sport.value} value={sport.value}>
-                            {sport.label}
-                          </option>
-                        ))}
-                      </Select>
-                    </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">Workout {workoutIndex + 1}</span>
+                          {day.workouts.length > 1 && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleRemoveWorkout(weekIndex, dayIndex, workoutIndex)}
+                            >
+                              <X className="h-3 w-3" />
+                            </Button>
+                          )}
+                        </div>
 
-                    <div className="space-y-2">
-                      <Label className="text-sm">Workout Type</Label>
-                      <Input
-                        value={day.workout_type}
-                        onChange={(e) =>
-                          handleDayChange(weekIndex, dayIndex, "workout_type", e.target.value)
-                        }
-                        placeholder="e.g., Long run, Tempo, Recovery"
-                      />
-                    </div>
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <div className="space-y-2">
+                            <Label className="text-sm">Sport</Label>
+                            <Select
+                              value={workout.sport_type || ""}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "sport_type",
+                                  e.target.value as SportType
+                                )
+                              }
+                            >
+                              <option value="">Select sport...</option>
+                              {SPORT_OPTIONS.map((sport) => (
+                                <option key={sport.value} value={sport.value}>
+                                  {sport.label}
+                                </option>
+                              ))}
+                            </Select>
+                          </div>
 
-                    <div className="space-y-2">
-                      <Label className="text-sm">Duration (min)</Label>
-                      <Input
-                        type="number"
-                        value={day.target_duration || ""}
-                        onChange={(e) =>
-                          handleDayChange(weekIndex, dayIndex, "target_duration", parseInt(e.target.value) || undefined)
-                        }
-                        placeholder="60"
-                      />
-                    </div>
+                          <div className="space-y-2">
+                            <Label className="text-sm">Workout Type</Label>
+                            <Input
+                              value={workout.workout_type}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "workout_type",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="e.g., Long run, Tempo, Recovery"
+                            />
+                          </div>
 
-                    <div className="space-y-2">
-                      <Label className="text-sm">Distance (km)</Label>
-                      <Input
-                        type="number"
-                        step="0.1"
-                        value={day.target_distance || ""}
-                        onChange={(e) =>
-                          handleDayChange(weekIndex, dayIndex, "target_distance", parseFloat(e.target.value) || undefined)
-                        }
-                        placeholder="10"
-                      />
-                    </div>
+                          <div className="space-y-2">
+                            <Label className="text-sm">Time (optional)</Label>
+                            <Input
+                              type="time"
+                              value={workout.time || ""}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "time",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="HH:MM"
+                            />
+                          </div>
 
-                    <div className="space-y-2 md:col-span-2">
-                      <Label className="text-sm">Intensity / Notes</Label>
-                      <Input
-                        value={day.intensity || ""}
-                        onChange={(e) =>
-                          handleDayChange(weekIndex, dayIndex, "intensity", e.target.value)
-                        }
-                        placeholder="Easy pace, Zone 2, 70-75% max HR"
-                      />
-                    </div>
+                          <div className="space-y-2">
+                            <Label className="text-sm">Duration (min)</Label>
+                            <Input
+                              type="number"
+                              value={workout.target_duration || ""}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "target_duration",
+                                  parseInt(e.target.value) || undefined
+                                )
+                              }
+                              placeholder="60"
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label className="text-sm">Distance (km)</Label>
+                            <Input
+                              type="number"
+                              step="0.1"
+                              value={workout.target_distance || ""}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "target_distance",
+                                  parseFloat(e.target.value) || undefined
+                                )
+                              }
+                              placeholder="10"
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label className="text-sm">Intensity / Notes</Label>
+                            <Input
+                              value={workout.intensity || ""}
+                              onChange={(e) =>
+                                handleWorkoutChange(
+                                  weekIndex,
+                                  dayIndex,
+                                  workoutIndex,
+                                  "intensity",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="Easy pace, Zone 2, 70-75% max HR"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleAddWorkout(weekIndex, dayIndex)}
+                      className="w-full"
+                    >
+                      <Plus className="h-3 w-3 mr-1" />
+                      Add Another Workout
+                    </Button>
                   </div>
                 )}
               </div>
