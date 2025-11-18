@@ -9,7 +9,9 @@ import {
   Target,
   LineChart,
   FileText,
-  Layers
+  Layers,
+  BarChart3,
+  Gauge
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +20,8 @@ const navigation = [
   { name: "Workouts", href: "/workouts", icon: Dumbbell },
   { name: "Calendar", href: "/calendar", icon: Calendar },
   { name: "Periodization", href: "/periodization", icon: Target },
+  { name: "Analytics", href: "/analytics", icon: BarChart3 },
+  { name: "Zones", href: "/zones", icon: Gauge },
   { name: "Metrics", href: "/metrics", icon: LineChart },
   { name: "Notes", href: "/notes", icon: FileText },
   { name: "Plans", href: "/plans", icon: Layers },
