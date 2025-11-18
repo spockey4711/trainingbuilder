@@ -30,16 +30,16 @@ export default async function CalendarPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Calendar</h1>
+          <h1 className="text-3xl font-bold">Kalender</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            Week of {format(new Date(weekStart), "MMM d")} -{" "}
+            Woche vom {format(new Date(weekStart), "MMM d")} -{" "}
             {format(new Date(weekEnd), "MMM d, yyyy")}
           </p>
         </div>
         <Link href="/workouts/new">
           <Button>
             <Plus className="mr-2 h-4 w-4" />
-            Log Workout
+            Training protokollieren
           </Button>
         </Link>
       </div>

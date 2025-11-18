@@ -44,19 +44,19 @@ export default function LoginPage() {
           <div className="flex justify-center mb-4">
             <Activity className="h-12 w-12 text-blue-600" />
           </div>
-          <CardTitle className="text-2xl">Welcome Back</CardTitle>
+          <CardTitle className="text-2xl">Willkommen zurück</CardTitle>
           <CardDescription>
-            Sign in to your Training Webapp account
+            Melde dich bei deinem Training Webapp Konto an
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">E-Mail</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="deine@email.de"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -64,7 +64,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Passwort</Label>
               <Input
                 id="password"
                 type="password"
@@ -82,14 +82,14 @@ export default function LoginPage() {
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? "Anmelden..." : "Anmelden"}
             </Button>
           </form>
 
           <div className="mt-4 text-center text-sm">
-            Don't have an account?{" "}
+            Noch kein Konto?{" "}
             <Link href="/signup" className="text-blue-600 hover:underline">
-              Sign up
+              Registrieren
             </Link>
           </div>
         </CardContent>

@@ -27,9 +27,9 @@ export function Sidebar() {
       {/* Sport Color Indicators */}
       <div className="flex gap-2 px-6 py-4 border-b dark:border-gray-800">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-swim" title="Swim"></div>
-          <div className="w-3 h-3 rounded-full bg-bike" title="Bike"></div>
-          <div className="w-3 h-3 rounded-full bg-run" title="Run"></div>
+          <div className="w-3 h-3 rounded-full bg-swim" title="Schwimmen"></div>
+          <div className="w-3 h-3 rounded-full bg-bike" title="Radfahren"></div>
+          <div className="w-3 h-3 rounded-full bg-run" title="Laufen"></div>
           <div className="w-3 h-3 rounded-full bg-hockey" title="Hockey"></div>
           <div className="w-3 h-3 rounded-full bg-gym" title="Gym"></div>
         </div>
@@ -48,7 +48,7 @@ export function Sidebar() {
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-5 w-5" />
-          Logout
+          Abmelden
         </Button>
       </div>
     </div>

@@ -42,15 +42,15 @@ export default async function MetricsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Metrics</h1>
+          <h1 className="text-3xl font-bold">Metriken</h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            Track HRV, heart rate, and performance data
+            Erfasse HRV, Herzfrequenz und Leistungsdaten
           </p>
         </div>
         <Link href="/metrics/log">
           <Button>
             <Plus className="mr-2 h-4 w-4" />
-            Log Metrics
+            Metriken protokollieren
           </Button>
         </Link>
       </div>
@@ -59,7 +59,7 @@ export default async function MetricsPage() {
         <div className="grid gap-6 md:grid-cols-3">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Avg HRV (30d)</CardTitle>
+              <CardTitle className="text-sm font-medium">Ø HRV (30 Tage)</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{avgHRV}</div>
@@ -68,7 +68,7 @@ export default async function MetricsPage() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Avg Readiness (30d)</CardTitle>
+              <CardTitle className="text-sm font-medium">Ø Bereitschaft (30 Tage)</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{avgReadiness}/10</div>
@@ -77,7 +77,7 @@ export default async function MetricsPage() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Days Tracked</CardTitle>
+              <CardTitle className="text-sm font-medium">Erfasste Tage</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{metrics.length}</div>
@@ -89,8 +89,8 @@ export default async function MetricsPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>HRV & Readiness Trend</CardTitle>
-            <CardDescription>Last 30 days</CardDescription>
+            <CardTitle>HRV & Bereitschafts-Trend</CardTitle>
+            <CardDescription>Letzte 30 Tage</CardDescription>
           </CardHeader>
           <CardContent className="h-64">
             {hasData ? (
@@ -98,7 +98,7 @@ export default async function MetricsPage() {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  No HRV data yet
+                  Noch keine HRV-Daten
                 </p>
               </div>
             )}
@@ -107,8 +107,8 @@ export default async function MetricsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Sleep & Stress</CardTitle>
-            <CardDescription>Quality and stress levels</CardDescription>
+            <CardTitle>Schlaf & Stress</CardTitle>
+            <CardDescription>Qualität und Stresslevel</CardDescription>
           </CardHeader>
           <CardContent className="h-64">
             {hasData ? (
@@ -116,7 +116,7 @@ export default async function MetricsPage() {
             ) : (
               <div className="h-full flex items-center justify-center">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Start logging metrics to see your trends
+                  Beginne Metriken zu protokollieren, um deine Trends zu sehen
                 </p>
               </div>
             )}
@@ -127,8 +127,8 @@ export default async function MetricsPage() {
       {hasData && (
         <Card>
           <CardHeader>
-            <CardTitle>Recent Entries</CardTitle>
-            <CardDescription>Your latest metric logs</CardDescription>
+            <CardTitle>Letzte Einträge</CardTitle>
+            <CardDescription>Deine letzten Metrik-Einträge</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -138,8 +138,8 @@ export default async function MetricsPage() {
                     <div className="font-medium">{format(new Date(metric.date), "MMMM d, yyyy")}</div>
                     <div className="text-sm text-gray-500 flex gap-4 mt-1">
                       {metric.hrv && <span>HRV: {metric.hrv}</span>}
-                      {metric.readiness && <span>Readiness: {metric.readiness}/10</span>}
-                      {metric.sleep_hours && <span>Sleep: {metric.sleep_hours}h</span>}
+                      {metric.readiness && <span>Bereitschaft: {metric.readiness}/10</span>}
+                      {metric.sleep_hours && <span>Schlaf: {metric.sleep_hours}h</span>}
                     </div>
                   </div>
                   {metric.readiness && (

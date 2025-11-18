@@ -13,9 +13,9 @@ const SPORT_COLORS: Record<string, string> = {
 };
 
 const SPORT_LABELS: Record<string, string> = {
-  swim: "Swim",
-  bike: "Bike",
-  run: "Run",
+  swim: "Schwimmen",
+  bike: "Radfahren",
+  run: "Laufen",
   hockey: "Hockey",
   gym: "Gym",
 };
@@ -36,9 +36,9 @@ export default async function NotesPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Training Notes</h1>
+        <h1 className="text-3xl font-bold">Trainingsnotizen</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">
-          Search and review your training reflections
+          Suche und überprüfe deine Trainingsreflexionen
         </p>
       </div>
 
@@ -47,14 +47,14 @@ export default async function NotesPage({
       {notes.length === 0 ? (
         <Card>
           <CardHeader>
-            <CardTitle>All Notes</CardTitle>
-            <CardDescription>Your training reflections and learnings</CardDescription>
+            <CardTitle>Alle Notizen</CardTitle>
+            <CardDescription>Deine Trainingsreflexionen und Erkenntnisse</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
               {params.q || params.sport || params.tag
-                ? "No notes found matching your search"
-                : "No training notes yet. Notes are automatically created when you log workouts!"}
+                ? "Keine Notizen gefunden, die deiner Suche entsprechen"
+                : "Noch keine Trainingsnotizen. Notizen werden automatisch erstellt, wenn du Trainings protokollierst!"}
             </p>
           </CardContent>
         </Card>
@@ -78,7 +78,7 @@ export default async function NotesPage({
                             {format(new Date(note.workouts.date), "MMM d, yyyy")}
                           </span>
                           <span className="text-sm text-gray-500">
-                            {note.workouts.duration} min
+                            {note.workouts.duration} Min
                             {note.workouts.distance && ` • ${note.workouts.distance} km`}
                           </span>
                         </>
@@ -94,7 +94,7 @@ export default async function NotesPage({
                       {note.feeling && (
                         <div>
                           <div className="text-xs font-medium text-gray-500 mb-1">
-                            How it felt
+                            Wie es sich anfühlte
                           </div>
                           <p className="text-sm">{note.feeling}</p>
                         </div>
@@ -103,7 +103,7 @@ export default async function NotesPage({
                       {note.what_went_well && (
                         <div>
                           <div className="text-xs font-medium text-green-600 dark:text-green-400 mb-1">
-                            What went well
+                            Was gut lief
                           </div>
                           <p className="text-sm">{note.what_went_well}</p>
                         </div>
@@ -112,7 +112,7 @@ export default async function NotesPage({
                       {note.what_to_adjust && (
                         <div>
                           <div className="text-xs font-medium text-blue-600 dark:text-blue-400 mb-1">
-                            What to adjust
+                            Was anzupassen ist
                           </div>
                           <p className="text-sm">{note.what_to_adjust}</p>
                         </div>
@@ -121,7 +121,7 @@ export default async function NotesPage({
                       {note.physical_sensations && (
                         <div>
                           <div className="text-xs font-medium text-gray-500 mb-1">
-                            Physical sensations
+                            Körperliche Empfindungen
                           </div>
                           <p className="text-sm">{note.physical_sensations}</p>
                         </div>
@@ -130,7 +130,7 @@ export default async function NotesPage({
                       {note.mental_notes && (
                         <div>
                           <div className="text-xs font-medium text-gray-500 mb-1">
-                            Mental notes
+                            Mentale Notizen
                           </div>
                           <p className="text-sm">{note.mental_notes}</p>
                         </div>
@@ -159,7 +159,7 @@ export default async function NotesPage({
 
       {notes.length > 0 && (
         <div className="text-center text-sm text-gray-500">
-          Showing {notes.length} {notes.length === 1 ? "note" : "notes"}
+          Zeige {notes.length} {notes.length === 1 ? "Notiz" : "Notizen"}
         </div>
       )}
     </div>

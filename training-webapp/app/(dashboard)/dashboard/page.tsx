@@ -14,9 +14,9 @@ const SPORT_COLORS: Record<string, string> = {
 };
 
 const SPORT_LABELS: Record<string, string> = {
-  swim: "Swim",
-  bike: "Bike",
-  run: "Run",
+  swim: "Schwimmen",
+  bike: "Radfahren",
+  run: "Laufen",
   hockey: "Hockey",
   gym: "Gym",
 };
@@ -34,48 +34,48 @@ export default async function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-gray-500 dark:text-gray-400 mt-2">
-          Welcome back, {user?.email}
+          Willkommen zurück, {user?.email}
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">This Week</CardTitle>
+            <CardTitle className="text-sm font-medium">Diese Woche</CardTitle>
             <div className="h-4 w-4 text-blue-600">📅</div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{stats.thisWeekWorkouts} workouts</div>
+            <div className="text-2xl font-bold">{stats.thisWeekWorkouts} Trainings</div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {stats.thisWeekWorkouts === 0 ? "Start logging your training" : "Keep it up!"}
+              {stats.thisWeekWorkouts === 0 ? "Beginne dein Training zu protokollieren" : "Weiter so!"}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Current Cycle</CardTitle>
+            <CardTitle className="text-sm font-medium">Aktueller Zyklus</CardTitle>
             <div className="h-4 w-4 text-blue-600">🎯</div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {stats.currentCycle?.name || "Not set"}
+              {stats.currentCycle?.name || "Nicht festgelegt"}
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {stats.currentCycle?.phase || "Create a training cycle"}
+              {stats.currentCycle?.phase || "Erstelle einen Trainingszyklus"}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">HRV Today</CardTitle>
+            <CardTitle className="text-sm font-medium">HRV Heute</CardTitle>
             <div className="h-4 w-4 text-blue-600">💓</div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.todayHRV || "--"}</div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              {stats.todayReadiness ? `Readiness: ${stats.todayReadiness}/10` : "Log your daily metrics"}
+              {stats.todayReadiness ? `Bereitschaft: ${stats.todayReadiness}/10` : "Erfasse deine täglichen Metriken"}
             </p>
           </CardContent>
         </Card>
@@ -84,17 +84,17 @@ export default async function DashboardPage() {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Recent Workouts</CardTitle>
-            <CardDescription>Your latest training sessions</CardDescription>
+            <CardTitle>Letzte Trainings</CardTitle>
+            <CardDescription>Deine letzten Trainingseinheiten</CardDescription>
           </CardHeader>
           <CardContent>
             {stats.recentWorkouts.length === 0 ? (
               <div className="text-center py-8">
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  No workouts yet. Start by logging your first workout!
+                  Noch keine Trainings. Protokolliere dein erstes Training!
                 </p>
                 <Link href="/workouts/new">
-                  <Button size="sm">Log Workout</Button>
+                  <Button size="sm">Training protokollieren</Button>
                 </Link>
               </div>
             ) : (
@@ -105,7 +105,7 @@ export default async function DashboardPage() {
                     <div className="flex-1">
                       <div className="font-medium text-sm">{SPORT_LABELS[workout.sport_type]}</div>
                       <div className="text-xs text-gray-500">
-                        {format(new Date(workout.date), "MMM d")} • {workout.duration} min
+                        {format(new Date(workout.date), "MMM d")} • {workout.duration} Min
                         {workout.distance && ` • ${workout.distance} km`}
                       </div>
                     </div>
@@ -123,8 +123,8 @@ export default async function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Weekly Volume</CardTitle>
-            <CardDescription>Training volume by sport</CardDescription>
+            <CardTitle>Wochenvolumen</CardTitle>
+            <CardDescription>Trainingsvolumen nach Sportart</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
                   <div className="flex-1">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">{SPORT_LABELS[sport]}</span>
-                      <span className="text-sm text-gray-500">{minutes} min</span>
+                      <span className="text-sm text-gray-500">{minutes} Min</span>
                     </div>
                     {minutes > 0 && (
                       <div className="mt-1 h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">

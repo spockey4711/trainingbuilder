@@ -36,9 +36,9 @@ const SPORT_COLORS: Record<SportType, string> = {
 };
 
 const SPORT_LABELS: Record<SportType, string> = {
-  swim: "Swim",
-  bike: "Bike",
-  run: "Run",
+  swim: "Schwimmen",
+  bike: "Radfahren",
+  run: "Laufen",
   hockey: "Hockey",
   gym: "Gym",
 };
@@ -47,7 +47,7 @@ export function WorkoutList({ workouts }: { workouts: Workout[] }) {
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this workout?")) return;
+    if (!confirm("Bist du sicher, dass du dieses Training löschen möchtest?")) return;
 
     setDeletingId(id);
     await deleteWorkout(id);
@@ -59,7 +59,7 @@ export function WorkoutList({ workouts }: { workouts: Workout[] }) {
       <Card>
         <CardContent className="p-12 text-center">
           <p className="text-gray-500 dark:text-gray-400">
-            No workouts logged yet. Click "New Workout" to get started!
+            Noch keine Trainings protokolliert. Klicke auf "Neues Training" um zu beginnen!
           </p>
         </CardContent>
       </Card>
@@ -87,14 +87,14 @@ export function WorkoutList({ workouts }: { workouts: Workout[] }) {
                   </div>
 
                   <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <span>{workout.duration} min</span>
+                    <span>{workout.duration} Min</span>
                     {workout.distance && <span>{workout.distance} km</span>}
                     {note?.rpe && <span>RPE: {note.rpe}/10</span>}
                     {workout.metrics?.avg_heart_rate && (
-                      <span>Avg HR: {workout.metrics.avg_heart_rate}</span>
+                      <span>Ø HF: {workout.metrics.avg_heart_rate}</span>
                     )}
                     {workout.metrics?.pace && (
-                      <span>Pace: {workout.metrics.pace} min/km</span>
+                      <span>Tempo: {workout.metrics.pace} Min/km</span>
                     )}
                   </div>
 

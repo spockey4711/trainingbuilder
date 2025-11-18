@@ -26,13 +26,13 @@ export default function SignupPage() {
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError("Passwörter stimmen nicht überein");
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError("Passwort muss mindestens 6 Zeichen lang sein");
       setLoading(false);
       return;
     }
@@ -66,29 +66,29 @@ export default function SignupPage() {
           <div className="flex justify-center mb-4">
             <Activity className="h-12 w-12 text-blue-600" />
           </div>
-          <CardTitle className="text-2xl">Create Account</CardTitle>
+          <CardTitle className="text-2xl">Konto erstellen</CardTitle>
           <CardDescription>
-            Sign up for Training Webapp
+            Registriere dich für Training Webapp
           </CardDescription>
         </CardHeader>
         <CardContent>
           {success ? (
             <div className="text-center py-4">
               <div className="text-green-600 dark:text-green-400 mb-2">
-                Account created successfully!
+                Konto erfolgreich erstellt!
               </div>
               <p className="text-sm text-gray-500">
-                Redirecting to dashboard...
+                Weiterleitung zum Dashboard...
               </p>
             </div>
           ) : (
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">E-Mail</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder="deine@email.de"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -96,7 +96,7 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Passwort</Label>
                 <Input
                   id="password"
                   type="password"
@@ -108,7 +108,7 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">Passwort bestätigen</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -126,15 +126,15 @@ export default function SignupPage() {
               )}
 
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Creating account..." : "Sign Up"}
+                {loading ? "Konto wird erstellt..." : "Registrieren"}
               </Button>
             </form>
           )}
 
           <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
+            Bereits ein Konto?{" "}
             <Link href="/login" className="text-blue-600 hover:underline">
-              Sign in
+              Anmelden
             </Link>
           </div>
         </CardContent>
