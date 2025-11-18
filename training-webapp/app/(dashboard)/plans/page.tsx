@@ -94,15 +94,32 @@ export default async function PlansPage() {
                               </div>
                             );
                           }
-                          return (
+
+                          // Handle new structure with workouts array
+                          const workouts = day.workouts || [];
+                          if (workouts.length === 0) {
+                            return (
+                              <div
+                                key={idx}
+                                className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs rounded"
+                              >
+                                Rest
+                              </div>
+                            );
+                          }
+
+                          // Show multiple workouts per day
+                          return workouts.map((workout: any, wIdx: number) => (
                             <div
-                              key={idx}
-                              className={`px-2 py-1 ${day.sport_type ? SPORT_COLORS[day.sport_type] : "bg-gray-200"} text-xs rounded text-white`}
+                              key={`${idx}-${wIdx}`}
+                              className={`px-2 py-1 ${workout.sport_type ? SPORT_COLORS[workout.sport_type] : "bg-gray-200"} text-xs rounded text-white`}
                             >
-                              {day.sport_type ? SPORT_LABELS[day.sport_type] : "Workout"}
-                              {day.target_duration && ` ${day.target_duration}m`}
+                              {workout.sport_type ? SPORT_LABELS[workout.sport_type] : "Workout"}
+                              {workout.target_duration && ` ${workout.target_duration}m`}
+                              {workout.time && ` ${workout.time}`}
+                              {workouts.length > 1 && ` (${wIdx + 1})`}
                             </div>
-                          );
+                          ));
                         })}
                       </div>
                     </div>
