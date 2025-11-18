@@ -21,6 +21,7 @@ interface Workout {
   id: string;
   sport_type: SportType;
   date: string;
+  workout_time?: string | null;
   duration: number;
   distance: number | null;
   metrics: any;
@@ -83,6 +84,7 @@ export function WorkoutList({ workouts }: { workouts: Workout[] }) {
                     </h3>
                     <span className="text-sm text-gray-500">
                       {format(new Date(workout.date), "MMM d, yyyy")}
+                      {workout.workout_time && ` • ${workout.workout_time}`}
                     </span>
                   </div>
 

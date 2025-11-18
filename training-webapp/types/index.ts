@@ -32,6 +32,7 @@ export interface Workout {
   user_id: string;
   sport_type: SportType;
   date: string;
+  workout_time?: string; // HH:MM format, optional for ordering multiple workouts per day
   duration: number; // in minutes
   distance?: number; // in km
   metrics?: WorkoutMetrics;

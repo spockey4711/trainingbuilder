@@ -18,6 +18,7 @@ export async function createWorkout(formData: FormData) {
   // Extract workout data
   const sportType = formData.get("sportType") as SportType;
   const date = formData.get("date") as string;
+  const workoutTime = formData.get("workoutTime") as string | null;
   const duration = parseInt(formData.get("duration") as string);
   const distance = formData.get("distance") ? parseFloat(formData.get("distance") as string) : null;
   const cycleId = formData.get("cycleId") as string | null;
@@ -64,6 +65,7 @@ export async function createWorkout(formData: FormData) {
       user_id: user.id,
       sport_type: sportType,
       date,
+      workout_time: workoutTime || null,
       duration,
       distance,
       metrics,
@@ -134,6 +136,7 @@ export async function getWorkouts() {
       workout_notes (*)
     `)
     .order("date", { ascending: false })
+    .order("workout_time", { ascending: false, nullsLast: true })
     .limit(50);
 
   if (error) {
