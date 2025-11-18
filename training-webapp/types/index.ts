@@ -32,6 +32,7 @@ export interface Workout {
   user_id: string;
   sport_type: SportType;
   date: string;
+  workout_time?: string; // HH:MM format, optional for ordering multiple workouts per day
   duration: number; // in minutes
   distance?: number; // in km
   metrics?: WorkoutMetrics;
@@ -133,4 +134,78 @@ export interface Session {
   date: string;
   created_at: string;
   updated_at: string;
+}
+
+// Training Zones
+export interface TrainingZones {
+  id: string;
+  user_id: string;
+  sport_type: SportType;
+  zone_type: 'heart_rate' | 'power' | 'pace';
+  zones: Zone[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Zone {
+  number: number;
+  name: string;
+  min: number;
+  max: number;
+  description?: string;
+}
+
+export interface ZoneDistribution {
+  zone: number;
+  time: number; // minutes
+  percentage: number;
+}
+
+// Enhanced Workout Metrics with Zones
+export interface EnhancedWorkoutMetrics extends WorkoutMetrics {
+  zone_distribution?: ZoneDistribution[];
+  normalized_power?: number; // For cycling
+  intensity_factor?: number; // IF = NP / FTP
+  variability_index?: number; // VI = NP / Average Power
+  training_load?: number;
+  acute_load?: number;
+  chronic_load?: number;
+  fitness?: number;
+  fatigue?: number;
+  form?: number;
+}
+
+// Volume Analytics
+export interface VolumeAnalytics {
+  totalDuration: number;
+  totalDistance: number;
+  totalWorkouts: number;
+  bySport: SportVolumeBreakdown[];
+  byWeek: WeeklyVolume[];
+  byZone?: ZoneVolumeBreakdown[];
+}
+
+export interface SportVolumeBreakdown {
+  sport: SportType;
+  duration: number;
+  distance: number;
+  workouts: number;
+  avgDuration: number;
+  percentage: number;
+}
+
+export interface WeeklyVolume {
+  week: string; // ISO week string
+  duration: number;
+  distance: number;
+  workouts: number;
+  tss?: number;
+}
+
+export interface ZoneVolumeBreakdown {
+  zone: number;
+  zoneName: string;
+  duration: number;
+  percentage: number;
+  workouts: number;
 }

@@ -1,6 +1,9 @@
 import { WorkoutForm } from "@/components/workouts/workout-form";
+import { getCycles } from "@/lib/actions/cycles";
 
-export default function NewWorkoutPage() {
+export default async function NewWorkoutPage() {
+  const { cycles } = await getCycles();
+
   return (
     <div className="space-y-6 max-w-4xl">
       <div>
@@ -10,7 +13,7 @@ export default function NewWorkoutPage() {
         </p>
       </div>
 
-      <WorkoutForm />
+      <WorkoutForm cycles={cycles} />
     </div>
   );
 }

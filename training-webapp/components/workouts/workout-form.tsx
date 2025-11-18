@@ -9,7 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createWorkout } from "@/lib/actions/workouts";
-import type { SportType } from "@/types";
+import type { SportType, TrainingCycle } from "@/types";
+import { format } from "date-fns";
 
 const SPORT_OPTIONS: { value: SportType; label: string; color: string }[] = [
   { value: "swim", label: "Schwimmen", color: "bg-swim" },
@@ -19,7 +20,11 @@ const SPORT_OPTIONS: { value: SportType; label: string; color: string }[] = [
   { value: "gym", label: "Gym", color: "bg-gym" },
 ];
 
-export function WorkoutForm() {
+interface WorkoutFormProps {
+  cycles?: TrainingCycle[];
+}
+
+export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
   const router = useRouter();
   const [sportType, setSportType] = useState<SportType>("run");
   const [loading, setLoading] = useState(false);
@@ -110,7 +115,20 @@ export function WorkoutForm() {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="duration">Dauer (Minuten)</Label>
+              <Label htmlFor="workoutTime">Time (optional)</Label>
+              <Input
+                id="workoutTime"
+                name="workoutTime"
+                type="time"
+                placeholder="HH:MM"
+              />
+              <p className="text-xs text-gray-500">
+                For logging multiple workouts per day
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="duration">Duration (minutes)</Label>
               <Input
                 id="duration"
                 name="duration"
@@ -135,6 +153,26 @@ export function WorkoutForm() {
               </div>
             )}
           </div>
+
+          {cycles.length > 0 && (
+            <div className="space-y-2">
+              <Label htmlFor="cycleId">Training Cycle (optional)</Label>
+              <Select
+                id="cycleId"
+                name="cycleId"
+              >
+                <option value="">None - Not part of a specific cycle</option>
+                {cycles.map((cycle) => (
+                  <option key={cycle.id} value={cycle.id}>
+                    {cycle.name} ({cycle.type}) - {format(new Date(cycle.start_date), "MMM d")} to {format(new Date(cycle.end_date), "MMM d")}
+                  </option>
+                ))}
+              </Select>
+              <p className="text-xs text-gray-500">
+                Assign this workout to a macro, meso, or micro cycle for better tracking
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 

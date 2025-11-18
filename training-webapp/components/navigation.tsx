@@ -9,7 +9,9 @@ import {
   Target,
   LineChart,
   FileText,
-  Layers
+  Layers,
+  BarChart3,
+  Gauge
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

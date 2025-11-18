@@ -2,9 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { getCyclesByType, getActiveCycle } from "@/lib/actions/cycles";
+import { getCycles, getCyclesByType, getActiveCycle, getCycleWorkoutStats } from "@/lib/actions/cycles";
 import { format, differenceInDays } from "date-fns";
 import { CycleList } from "@/components/cycles/cycle-list";
+import { HierarchicalCycleView } from "@/components/cycles/hierarchical-cycle-view";
 
 const PHASE_COLORS: Record<string, string> = {
   base: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
@@ -23,6 +24,7 @@ const PHASE_LABELS: Record<string, string> = {
 };
 
 export default async function PeriodizationPage() {
+  const { cycles: allCycles } = await getCycles();
   const { cycles: macroCycles } = await getCyclesByType("macro");
   const { cycles: mesoCycles } = await getCyclesByType("meso");
   const { cycles: microCycles } = await getCyclesByType("micro");
@@ -30,6 +32,8 @@ export default async function PeriodizationPage() {
   const { cycle: activeMacro } = await getActiveCycle("macro");
   const { cycle: activeMeso } = await getActiveCycle("meso");
   const { cycle: activeMicro } = await getActiveCycle("micro");
+
+  const { stats: workoutStats } = await getCycleWorkoutStats();
 
   const today = new Date();
 
@@ -169,12 +173,26 @@ export default async function PeriodizationPage() {
         </Card>
       </div>
 
-      {/* All Cycles Lists */}
-      <div className="space-y-6">
-        <CycleList title="Makrozyklen" cycles={macroCycles} type="macro" />
-        <CycleList title="Mesozyklen" cycles={mesoCycles} type="meso" />
-        <CycleList title="Mikrozyklen" cycles={microCycles} type="micro" />
+      {/* Hierarchical View */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Training Plan Hierarchy</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          View your complete training structure with micro cycles nested in meso cycles, and meso cycles in macro cycles.
+        </p>
+        <HierarchicalCycleView cycles={allCycles} workoutStats={workoutStats} />
       </div>
+
+      {/* All Cycles Lists - Legacy View */}
+      <details className="mt-8">
+        <summary className="text-lg font-semibold cursor-pointer mb-4">
+          List View (All Cycles)
+        </summary>
+        <div className="space-y-6">
+          <CycleList title="Macro Cycles" cycles={macroCycles} type="macro" />
+          <CycleList title="Meso Cycles" cycles={mesoCycles} type="meso" />
+          <CycleList title="Micro Cycles" cycles={microCycles} type="micro" />
+        </div>
+      </details>
     </div>
   );
 }
