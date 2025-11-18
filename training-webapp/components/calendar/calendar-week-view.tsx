@@ -48,7 +48,16 @@ export function CalendarWeekView({
 
   const getWorkoutsForDay = (day: Date) => {
     const dayStr = format(day, "yyyy-MM-dd");
-    return workouts.filter((w) => w.date === dayStr);
+    const dayWorkouts = workouts.filter((w) => w.date === dayStr);
+    // Sort by workout_time if available, otherwise by created_at
+    return dayWorkouts.sort((a, b) => {
+      if (a.workout_time && b.workout_time) {
+        return a.workout_time.localeCompare(b.workout_time);
+      }
+      if (a.workout_time) return -1;
+      if (b.workout_time) return 1;
+      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+    });
   };
 
   const isToday = (day: Date) => {
@@ -107,8 +116,11 @@ export function CalendarWeekView({
                           SPORT_COLORS[workout.sport_type as SportType]
                         }`}
                       >
-                        <div className="font-medium">
-                          {SPORT_LABELS[workout.sport_type as SportType]}
+                        <div className="font-medium flex items-center justify-between">
+                          <span>{SPORT_LABELS[workout.sport_type as SportType]}</span>
+                          {workout.workout_time && (
+                            <span className="opacity-75">{workout.workout_time}</span>
+                          )}
                         </div>
                         <div className="opacity-90">
                           {workout.duration} min

@@ -115,6 +115,19 @@ export function WorkoutForm({ cycles = [] }: WorkoutFormProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
+              <Label htmlFor="workoutTime">Time (optional)</Label>
+              <Input
+                id="workoutTime"
+                name="workoutTime"
+                type="time"
+                placeholder="HH:MM"
+              />
+              <p className="text-xs text-gray-500">
+                For logging multiple workouts per day
+              </p>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="duration">Duration (minutes)</Label>
               <Input
                 id="duration"
