@@ -149,3 +149,102 @@ export async function deleteCycle(cycleId: string) {
 
   return { success: true };
 }
+
+// Calculate workout statistics for all cycles
+export async function getCycleWorkoutStats() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { stats: {} };
+  }
+
+  const { data: workouts, error } = await supabase
+    .from("workouts")
+    .select("id, cycle_id, duration, distance, sport_type, metrics")
+    .not("cycle_id", "is", null);
+
+  if (error) {
+    console.error("Error fetching workout stats:", error);
+    return { stats: {} };
+  }
+
+  // Calculate stats by cycle
+  const stats: Record<string, {
+    count: number;
+    totalDuration: number;
+    totalDistance: number;
+    totalVolume: number;
+  }> = {};
+
+  workouts?.forEach((workout) => {
+    if (!workout.cycle_id) return;
+
+    if (!stats[workout.cycle_id]) {
+      stats[workout.cycle_id] = {
+        count: 0,
+        totalDuration: 0,
+        totalDistance: 0,
+        totalVolume: 0,
+      };
+    }
+
+    stats[workout.cycle_id].count++;
+    stats[workout.cycle_id].totalDuration += workout.duration || 0;
+    stats[workout.cycle_id].totalDistance += workout.distance || 0;
+
+    // Calculate volume (duration in hours * intensity factor)
+    // For now, simple volume = duration in minutes
+    // Can be enhanced with TSS or other metrics
+    const volume = workout.duration || 0;
+    stats[workout.cycle_id].totalVolume += volume;
+  });
+
+  return { stats };
+}
+
+// Get workouts for a specific cycle (including child cycles)
+export async function getWorkoutsByCycle(cycleId: string, includeChildren: boolean = true) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { workouts: [] };
+  }
+
+  let cycleIds = [cycleId];
+
+  if (includeChildren) {
+    // Get all child cycles recursively
+    const { cycles: allCycles } = await getCycles();
+    const getChildCycleIds = (parentId: string): string[] => {
+      const children = allCycles.filter((c: any) => c.parent_cycle_id === parentId);
+      const childIds = children.map((c: any) => c.id);
+      const grandchildIds = children.flatMap((c: any) => getChildCycleIds(c.id));
+      return [...childIds, ...grandchildIds];
+    };
+    cycleIds = [cycleId, ...getChildCycleIds(cycleId)];
+  }
+
+  const { data: workouts, error } = await supabase
+    .from("workouts")
+    .select(`
+      *,
+      workout_notes (*)
+    `)
+    .in("cycle_id", cycleIds)
+    .order("date", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching workouts by cycle:", error);
+    return { workouts: [] };
+  }
+
+  return { workouts: workouts || [] };
+}

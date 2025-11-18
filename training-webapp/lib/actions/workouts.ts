@@ -20,6 +20,7 @@ export async function createWorkout(formData: FormData) {
   const date = formData.get("date") as string;
   const duration = parseInt(formData.get("duration") as string);
   const distance = formData.get("distance") ? parseFloat(formData.get("distance") as string) : null;
+  const cycleId = formData.get("cycleId") as string | null;
 
   // Build metrics object based on sport type
   const metrics: Record<string, any> = {};
@@ -66,6 +67,7 @@ export async function createWorkout(formData: FormData) {
       duration,
       distance,
       metrics,
+      cycle_id: cycleId || null,
       completed: true,
       planned: false,
     })

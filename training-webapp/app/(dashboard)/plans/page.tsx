@@ -1,8 +1,29 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Calendar, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { getTrainingPlans, deleteTrainingPlan } from "@/lib/actions/plans";
+import { format } from "date-fns";
 
-export default function PlansPage() {
+const SPORT_LABELS: Record<string, string> = {
+  swim: "Swim",
+  bike: "Bike",
+  run: "Run",
+  hockey: "Hockey",
+  gym: "Gym",
+};
+
+const SPORT_COLORS: Record<string, string> = {
+  swim: "bg-swim",
+  bike: "bg-bike",
+  run: "bg-run",
+  hockey: "bg-hockey",
+  gym: "bg-gym",
+};
+
+export default async function PlansPage() {
+  const { plans } = await getTrainingPlans();
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -12,23 +33,100 @@ export default function PlansPage() {
             Manage your training templates and weekly structures
           </p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          New Plan
-        </Button>
+        <Link href="/plans/new">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            New Plan
+          </Button>
+        </Link>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Your Training Plans</CardTitle>
-          <CardDescription>Reusable weekly structures for different phases</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            No training plans created yet. Build templates for base, build, peak, and taper phases!
-          </p>
-        </CardContent>
-      </Card>
+      {plans.length === 0 ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>Your Training Plans</CardTitle>
+            <CardDescription>Reusable weekly structures for different phases</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              No training plans created yet. Build templates for base, build, peak, and taper phases!
+            </p>
+          </CardContent>
+        </Card>
+      ) : (
+        <div className="grid gap-6 md:grid-cols-2">
+          {plans.map((plan: any) => (
+            <Card key={plan.id}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <CardTitle className="text-lg">{plan.name}</CardTitle>
+                    <CardDescription className="mt-1">
+                      {plan.description || "No description"}
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <Calendar className="h-4 w-4" />
+                  <span>
+                    {plan.structure?.length || 0} week{plan.structure?.length !== 1 ? "s" : ""}
+                  </span>
+                  <span className="text-gray-400">•</span>
+                  <span>Created {format(new Date(plan.created_at), "MMM d, yyyy")}</span>
+                </div>
+
+                {/* Weekly Overview */}
+                <div className="space-y-2">
+                  {plan.structure?.slice(0, 2).map((week: any) => (
+                    <div key={week.week} className="text-sm">
+                      <div className="font-medium mb-1">Week {week.week}</div>
+                      <div className="flex flex-wrap gap-1">
+                        {week.days?.map((day: any, idx: number) => {
+                          if (day.is_rest_day) {
+                            return (
+                              <div
+                                key={idx}
+                                className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-500 text-xs rounded"
+                              >
+                                Rest
+                              </div>
+                            );
+                          }
+                          return (
+                            <div
+                              key={idx}
+                              className={`px-2 py-1 ${day.sport_type ? SPORT_COLORS[day.sport_type] : "bg-gray-200"} text-xs rounded text-white`}
+                            >
+                              {day.sport_type ? SPORT_LABELS[day.sport_type] : "Workout"}
+                              {day.target_duration && ` ${day.target_duration}m`}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                  {plan.structure && plan.structure.length > 2 && (
+                    <div className="text-xs text-gray-500">
+                      + {plan.structure.length - 2} more week{plan.structure.length - 2 !== 1 ? "s" : ""}
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-2 border-t flex gap-2">
+                  <form action={deleteTrainingPlan.bind(null, plan.id)} className="flex-1">
+                    <Button type="submit" variant="ghost" size="sm" className="w-full">
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Delete
+                    </Button>
+                  </form>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
