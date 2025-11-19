@@ -5,7 +5,7 @@ import { getWorkouts } from "@/lib/actions/workouts";
 import { WorkoutList } from "@/components/workouts/workout-list";
 
 export default async function WorkoutsPage() {
-  const { workouts } = await getWorkouts();
+  const { workouts, error } = await getWorkouts();
 
   return (
     <div className="space-y-6">
@@ -24,7 +24,14 @@ export default async function WorkoutsPage() {
         </Link>
       </div>
 
-      <WorkoutList workouts={workouts} />
+      {error ? (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+          <p className="font-semibold">Fehler beim Laden der Trainings</p>
+          <p className="text-sm mt-1">{error}</p>
+        </div>
+      ) : (
+        <WorkoutList workouts={workouts || []} />
+      )}
     </div>
   );
 }

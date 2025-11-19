@@ -165,11 +165,11 @@ export async function getCycleWorkoutStats() {
   const { data: workouts, error } = await supabase
     .from("workouts")
     .select("id, cycle_id, duration, distance, sport_type, metrics")
+    .eq("user_id", user.id)
     .not("cycle_id", "is", null);
 
   if (error) {
-    console.error("Error fetching workout stats:", error);
-    return { stats: {} };
+    return { error: error.message };
   }
 
   // Calculate stats by cycle
@@ -238,12 +238,12 @@ export async function getWorkoutsByCycle(cycleId: string, includeChildren: boole
       *,
       workout_notes (*)
     `)
+    .eq("user_id", user.id)
     .in("cycle_id", cycleIds)
     .order("date", { ascending: false });
 
   if (error) {
-    console.error("Error fetching workouts by cycle:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };

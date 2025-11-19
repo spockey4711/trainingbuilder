@@ -19,6 +19,7 @@ export async function getVolumeAnalytics(startDate?: string, endDate?: string) {
   let query = supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .order("date", { ascending: true });
 
   if (startDate) {
@@ -31,8 +32,7 @@ export async function getVolumeAnalytics(startDate?: string, endDate?: string) {
   const { data: workouts, error } = await query;
 
   if (error) {
-    console.error("Error fetching workouts for analytics:", error);
-    return { analytics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -143,12 +143,12 @@ export async function getVolumeByCycle(cycleId: string) {
   const { data: workouts, error } = await supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .eq("cycle_id", cycleId)
     .order("date", { ascending: true });
 
   if (error) {
-    console.error("Error fetching workouts for cycle:", error);
-    return { analytics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -226,12 +226,12 @@ export async function getTrainingLoadMetrics(days: number = 42) {
   const { data: workouts, error } = await supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .gte("date", startDate)
     .order("date", { ascending: true });
 
   if (error) {
-    console.error("Error fetching workouts for load metrics:", error);
-    return { metrics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -325,12 +325,12 @@ export async function getDetailedWorkoutAnalysis() {
       *,
       workout_notes (*)
     `)
+    .eq("user_id", user.id)
     .order("date", { ascending: false })
     .limit(100);
 
   if (error) {
-    console.error("Error fetching detailed workouts:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };

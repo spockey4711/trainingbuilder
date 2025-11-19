@@ -33,7 +33,7 @@ export default async function PeriodizationPage() {
   const { cycle: activeMeso } = await getActiveCycle("meso");
   const { cycle: activeMicro } = await getActiveCycle("micro");
 
-  const { stats: workoutStats } = await getCycleWorkoutStats();
+  const { stats: workoutStats, error: statsError } = await getCycleWorkoutStats();
 
   const today = new Date();
 
@@ -179,7 +179,12 @@ export default async function PeriodizationPage() {
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           View your complete training structure with micro cycles nested in meso cycles, and meso cycles in macro cycles.
         </p>
-        <HierarchicalCycleView cycles={allCycles} workoutStats={workoutStats} />
+        {statsError && (
+          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-yellow-800 dark:border-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-200 mb-4 text-sm">
+            Warning: Could not load workout statistics. {statsError}
+          </div>
+        )}
+        <HierarchicalCycleView cycles={allCycles} workoutStats={workoutStats || {}} />
       </div>
 
       {/* All Cycles Lists - Legacy View */}

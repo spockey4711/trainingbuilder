@@ -135,13 +135,13 @@ export async function getWorkouts() {
       *,
       workout_notes (*)
     `)
+    .eq("user_id", user.id)
     .order("date", { ascending: false })
     .order("workout_time", { ascending: false, nullsLast: true })
     .limit(50);
 
   if (error) {
-    console.error("Error fetching workouts:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };
