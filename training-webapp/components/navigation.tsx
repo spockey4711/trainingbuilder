@@ -14,29 +14,31 @@ import {
   Gauge
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Trainings", href: "/workouts", icon: Dumbbell },
-  { name: "Kalender", href: "/calendar", icon: Calendar },
-  { name: "Periodisierung", href: "/periodization", icon: Target },
-  { name: "Metriken", href: "/metrics", icon: LineChart },
-  { name: "Notizen", href: "/notes", icon: FileText },
-  { name: "Pläne", href: "/plans", icon: Layers },
+const navigationItems = [
+  { key: "dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { key: "workouts", href: "/workouts", icon: Dumbbell },
+  { key: "calendar", href: "/calendar", icon: Calendar },
+  { key: "periodization", href: "/periodization", icon: Target },
+  { key: "metrics", href: "/metrics", icon: LineChart },
+  { key: "notes", href: "/notes", icon: FileText },
+  { key: "plans", href: "/plans", icon: Layers },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
+  const t = useTranslations('navigation');
 
   return (
     <nav className="flex flex-col gap-1">
-      {navigation.map((item) => {
+      {navigationItems.map((item) => {
         const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
         const Icon = item.icon;
 
         return (
           <Link
-            key={item.name}
+            key={item.key}
             href={item.href}
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
@@ -46,7 +48,7 @@ export function Navigation() {
             )}
           >
             <Icon className="h-5 w-5" />
-            {item.name}
+            {t(item.key)}
           </Link>
         );
       })}

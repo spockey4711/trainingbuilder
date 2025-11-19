@@ -5,10 +5,15 @@ import { Button } from "./ui/button";
 import { LogOut, Activity } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Sidebar() {
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations();
+  const tSports = useTranslations('sports');
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -19,19 +24,25 @@ export function Sidebar() {
   return (
     <div className="flex h-screen w-64 flex-col border-r bg-white dark:bg-gray-950 dark:border-gray-800">
       {/* Header */}
-      <div className="flex h-16 items-center gap-2 border-b px-6 dark:border-gray-800">
-        <Activity className="h-6 w-6 text-blue-600" />
-        <span className="text-lg font-semibold">Training Webapp</span>
+      <div className="flex h-16 items-center justify-between border-b px-4 dark:border-gray-800">
+        <div className="flex items-center gap-2">
+          <Activity className="h-6 w-6 text-blue-600" />
+          <span className="text-base font-semibold">{t('common.appName')}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <LanguageSwitcher />
+        </div>
       </div>
 
       {/* Sport Color Indicators */}
       <div className="flex gap-2 px-6 py-4 border-b dark:border-gray-800">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-swim" title="Schwimmen"></div>
-          <div className="w-3 h-3 rounded-full bg-bike" title="Radfahren"></div>
-          <div className="w-3 h-3 rounded-full bg-run" title="Laufen"></div>
-          <div className="w-3 h-3 rounded-full bg-hockey" title="Hockey"></div>
-          <div className="w-3 h-3 rounded-full bg-gym" title="Gym"></div>
+          <div className="w-3 h-3 rounded-full bg-swim" title={tSports('swim')}></div>
+          <div className="w-3 h-3 rounded-full bg-bike" title={tSports('bike')}></div>
+          <div className="w-3 h-3 rounded-full bg-run" title={tSports('run')}></div>
+          <div className="w-3 h-3 rounded-full bg-hockey" title={tSports('hockey')}></div>
+          <div className="w-3 h-3 rounded-full bg-gym" title={tSports('gym')}></div>
         </div>
       </div>
 
@@ -48,7 +59,7 @@ export function Sidebar() {
           onClick={handleLogout}
         >
           <LogOut className="mr-2 h-5 w-5" />
-          Abmelden
+          {t('navigation.logout')}
         </Button>
       </div>
     </div>

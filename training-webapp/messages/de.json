@@ -1,0 +1,289 @@
+{
+  "common": {
+    "appName": "Training Webapp",
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "reset": "Zurücksetzen",
+    "submit": "Absenden",
+    "minutes": "Minuten",
+    "hours": "Stunden",
+    "days": "Tage",
+    "weeks": "Wochen",
+    "months": "Monate"
+  },
+  "sports": {
+    "swim": "Schwimmen",
+    "bike": "Radfahren",
+    "run": "Laufen",
+    "hockey": "Hockey",
+    "gym": "Gym"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "workouts": "Trainings",
+    "calendar": "Kalender",
+    "periodization": "Periodisierung",
+    "metrics": "Metriken",
+    "notes": "Notizen",
+    "plans": "Pläne",
+    "analytics": "Analytics",
+    "zones": "Zonen",
+    "logout": "Abmelden"
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "description": "Melde dich bei deinem Training Webapp Konto an",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "emailPlaceholder": "deine@email.de",
+      "passwordPlaceholder": "••••••••",
+      "loginButton": "Anmelden",
+      "loginButtonLoading": "Anmelden...",
+      "noAccount": "Noch kein Konto?",
+      "signupLink": "Registrieren"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "description": "Registriere dich für Training Webapp",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "emailPlaceholder": "deine@email.de",
+      "passwordPlaceholder": "••••••••",
+      "signupButton": "Registrieren",
+      "signupButtonLoading": "Konto wird erstellt...",
+      "hasAccount": "Bereits ein Konto?",
+      "loginLink": "Anmelden",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "passwordTooShort": "Passwort muss mindestens 6 Zeichen lang sein",
+      "successMessage": "Konto erfolgreich erstellt!",
+      "redirecting": "Weiterleitung zum Dashboard..."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Willkommen zurück",
+    "thisWeek": {
+      "title": "Diese Woche",
+      "workouts": "Trainings",
+      "noWorkouts": "Beginne dein Training zu protokollieren",
+      "keepGoing": "Weiter so!"
+    },
+    "currentCycle": {
+      "title": "Aktueller Zyklus",
+      "notSet": "Nicht festgelegt",
+      "createCycle": "Erstelle einen Trainingszyklus"
+    },
+    "hrvToday": {
+      "title": "HRV Heute",
+      "readiness": "Bereitschaft",
+      "logMetrics": "Erfasse deine täglichen Metriken"
+    },
+    "recentWorkouts": {
+      "title": "Letzte Trainings",
+      "description": "Deine letzten Trainingseinheiten",
+      "noWorkouts": "Noch keine Trainings. Protokolliere dein erstes Training!",
+      "logWorkout": "Training protokollieren"
+    },
+    "weekVolume": {
+      "title": "Wochenvolumen",
+      "description": "Trainingsvolumen nach Sportart"
+    }
+  },
+  "workouts": {
+    "title": "Trainings",
+    "newWorkout": "Neues Training",
+    "logWorkout": "Training protokollieren",
+    "editWorkout": "Training bearbeiten",
+    "deleteWorkout": "Training löschen",
+    "noWorkouts": "Keine Trainings gefunden",
+    "form": {
+      "date": "Datum",
+      "time": "Uhrzeit",
+      "sportType": "Sportart",
+      "duration": "Dauer (Minuten)",
+      "distance": "Distanz (km)",
+      "pace": "Pace (min/km)",
+      "avgHeartRate": "Ø Herzfrequenz",
+      "avgPower": "Ø Leistung (W)",
+      "tss": "TSS",
+      "notes": "Notizen",
+      "rpe": "RPE (1-10)",
+      "feeling": "Wie hast du dich gefühlt?",
+      "whatWentWell": "Was lief gut?",
+      "whatToAdjust": "Was möchtest du anpassen?",
+      "physicalSensations": "Körperliche Empfindungen",
+      "mentalNotes": "Mentale Notizen",
+      "tags": "Tags (kommagetrennt)"
+    },
+    "fields": {
+      "fieldTime": "Spielfeld-Zeit (Min)",
+      "drills": "Übungen",
+      "sprints": "Sprints",
+      "exercises": "Übungen",
+      "addExercise": "Übung hinzufügen",
+      "exerciseName": "Übungsname",
+      "sets": "Sätze",
+      "reps": "Wiederholungen",
+      "weight": "Gewicht (kg)"
+    }
+  },
+  "calendar": {
+    "title": "Kalender",
+    "week": "Woche",
+    "previousWeek": "Vorherige Woche",
+    "nextWeek": "Nächste Woche",
+    "today": "Heute",
+    "noWorkouts": "Keine Trainings",
+    "restDay": "Ruhetag",
+    "weekSummary": "Wochenzusammenfassung",
+    "totalWorkouts": "Gesamt Trainings",
+    "totalDuration": "Gesamtdauer",
+    "activeCycle": "Aktiver Zyklus"
+  },
+  "periodization": {
+    "title": "Periodisierung",
+    "newCycle": "Neuer Zyklus",
+    "editCycle": "Zyklus bearbeiten",
+    "deleteCycle": "Zyklus löschen",
+    "noCycles": "Keine Zyklen gefunden",
+    "form": {
+      "name": "Name",
+      "type": "Typ",
+      "phase": "Phase",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "goals": "Ziele",
+      "focus": "Fokus",
+      "parentCycle": "Übergeordneter Zyklus",
+      "selectParent": "Zyklus auswählen..."
+    },
+    "types": {
+      "macro": "Makro",
+      "meso": "Meso",
+      "micro": "Mikro"
+    },
+    "phases": {
+      "base": "Basis",
+      "build": "Aufbau",
+      "peak": "Spitze",
+      "taper": "Taper",
+      "recovery": "Erholung"
+    },
+    "progress": "Fortschritt"
+  },
+  "metrics": {
+    "title": "Metriken",
+    "logMetrics": "Metriken erfassen",
+    "dailyMetrics": "Tägliche Metriken",
+    "trends": "Trends (30 Tage)",
+    "noMetrics": "Keine Metriken gefunden",
+    "form": {
+      "date": "Datum",
+      "hrv": "HRV",
+      "restingHeartRate": "Ruhepuls",
+      "sleepHours": "Schlafstunden",
+      "sleepQuality": "Schlafqualität (1-10)",
+      "stressLevel": "Stresslevel (1-10)",
+      "readiness": "Bereitschaft (1-10)",
+      "weight": "Gewicht (kg)",
+      "notes": "Notizen"
+    },
+    "charts": {
+      "hrv": "HRV",
+      "readiness": "Bereitschaft",
+      "sleepQuality": "Schlafqualität",
+      "stress": "Stress",
+      "average": "Durchschnitt"
+    }
+  },
+  "notes": {
+    "title": "Trainingsnotizen",
+    "search": "Notizen durchsuchen...",
+    "filterBySport": "Nach Sport filtern",
+    "filterByTag": "Nach Tag filtern",
+    "allSports": "Alle Sportarten",
+    "noNotes": "Keine Notizen gefunden",
+    "foundNotes": "Notizen gefunden",
+    "rpe": "RPE",
+    "tags": "Tags"
+  },
+  "plans": {
+    "title": "Trainingspläne",
+    "newPlan": "Neuer Plan",
+    "editPlan": "Plan bearbeiten",
+    "deletePlan": "Plan löschen",
+    "applyToWeek": "Auf Woche anwenden",
+    "noPlans": "Keine Pläne gefunden",
+    "form": {
+      "name": "Name",
+      "description": "Beschreibung",
+      "cycle": "Trainingszyklus",
+      "selectCycle": "Zyklus auswählen...",
+      "weekStructure": "Wochenstruktur"
+    },
+    "apply": {
+      "title": "Plan auf Woche anwenden",
+      "selectWeek": "Woche auswählen",
+      "startDate": "Startdatum",
+      "warning": "Warnung: Bestehende Trainings in dieser Woche werden nicht überschrieben.",
+      "success": "Plan erfolgreich angewendet!",
+      "error": "Fehler beim Anwenden des Plans"
+    }
+  },
+  "analytics": {
+    "title": "Analytics",
+    "volume": {
+      "title": "Trainingsvolumen (12 Wochen)",
+      "weekly": "Wöchentliches Volumen",
+      "total": "Gesamt"
+    },
+    "distribution": {
+      "title": "Sportverteilung",
+      "byTime": "Nach Zeit",
+      "byWorkouts": "Nach Anzahl"
+    },
+    "load": {
+      "title": "Trainingsbelastung",
+      "acute": "Akute Last (7 Tage)",
+      "chronic": "Chronische Last (42 Tage)",
+      "acwr": "ACWR",
+      "injuryRisk": "Verletzungsrisiko",
+      "low": "Niedrig",
+      "optimal": "Optimal",
+      "elevated": "Erhöht",
+      "high": "Hoch"
+    },
+    "tss": {
+      "title": "TSS Trends",
+      "weekly": "Wöchentlich"
+    },
+    "frequency": {
+      "title": "Trainingshäufigkeit",
+      "workoutsPerWeek": "Trainings pro Woche"
+    }
+  },
+  "zones": {
+    "title": "Trainingszonen",
+    "description": "Verwalte deine Trainingszoneneinstellungen",
+    "heartRate": "Herzfrequenz-Zonen",
+    "power": "Leistungszonen",
+    "pace": "Pace-Zonen",
+    "notImplemented": "Zonen-Management kommt bald!",
+    "placeholder": "Diese Seite zeigt Informationen zu Trainingszonen"
+  }
+}

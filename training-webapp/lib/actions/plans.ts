@@ -100,7 +100,34 @@ export async function getTrainingPlan(planId: string) {
   return { plan };
 }
 
-export async function deleteTrainingPlan(planId: string) {
+export async function deleteTrainingPlan(planId: string): Promise<void> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("Not authenticated");
+  }
+
+  const { error } = await supabase
+    .from("training_plans")
+    .delete()
+    .eq("id", planId)
+    .eq("user_id", user.id);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/plans");
+}
+
+export async function applyPlanToWeek(
+  planId: string,
+  weekStartDate: string
+): Promise<{ success?: boolean; workoutsCreated?: number; error?: string }> {
   const supabase = await createClient();
 
   const {
@@ -111,17 +138,68 @@ export async function deleteTrainingPlan(planId: string) {
     return { error: "Not authenticated" };
   }
 
-  const { error } = await supabase
-    .from("training_plans")
-    .delete()
-    .eq("id", planId)
-    .eq("user_id", user.id);
+  // Get the plan
+  const { plan } = await getTrainingPlan(planId);
+
+  if (!plan) {
+    return { error: "Plan not found" };
+  }
+
+  const structure = plan.structure as WeeklyStructure[];
+
+  if (!structure || structure.length === 0) {
+    return { error: "Plan has no structure" };
+  }
+
+  // Calculate dates for the week
+  const startDate = new Date(weekStartDate);
+  const workoutsToCreate = [];
+
+  for (const weekPlan of structure) {
+    for (const dayPlan of weekPlan.days) {
+      if (dayPlan.is_rest_day || dayPlan.workouts.length === 0) {
+        continue;
+      }
+
+      // Calculate the date for this day (Monday = 0, Sunday = 6)
+      const workoutDate = new Date(startDate);
+      workoutDate.setDate(startDate.getDate() + dayPlan.day);
+
+      for (const workoutPlan of dayPlan.workouts) {
+        workoutsToCreate.push({
+          user_id: user.id,
+          date: workoutDate.toISOString().split("T")[0],
+          sport_type: workoutPlan.sport_type || "run",
+          duration: workoutPlan.target_duration || null,
+          distance: workoutPlan.target_distance || null,
+          workout_time: workoutPlan.time || null,
+          cycle_id: plan.cycle_id,
+          metrics: {
+            workout_type: workoutPlan.workout_type,
+            intensity: workoutPlan.intensity,
+          },
+        });
+      }
+    }
+  }
+
+  if (workoutsToCreate.length === 0) {
+    return { error: "No workouts to create from this plan" };
+  }
+
+  // Insert workouts
+  const { data, error } = await supabase
+    .from("workouts")
+    .insert(workoutsToCreate)
+    .select();
 
   if (error) {
+    console.error("Error creating workouts:", error);
     return { error: error.message };
   }
 
-  revalidatePath("/plans");
+  revalidatePath("/calendar");
+  revalidatePath("/workouts");
 
-  return { success: true };
+  return { success: true, workoutsCreated: data?.length || 0 };
 }

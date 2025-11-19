@@ -4,6 +4,7 @@ import { Plus, Calendar, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { getTrainingPlans, deleteTrainingPlan } from "@/lib/actions/plans";
 import { format } from "date-fns";
+import { ApplyPlanDialog } from "@/components/apply-plan-dialog";
 
 const SPORT_LABELS: Record<string, string> = {
   swim: "Swim",
@@ -132,6 +133,9 @@ export default async function PlansPage() {
                 </div>
 
                 <div className="pt-2 border-t flex gap-2">
+                  <div className="flex-1">
+                    <ApplyPlanDialog planId={plan.id} planName={plan.name} />
+                  </div>
                   <form action={deleteTrainingPlan.bind(null, plan.id)} className="flex-1">
                     <Button type="submit" variant="ghost" size="sm" className="w-full">
                       <Trash2 className="h-4 w-4 mr-2" />

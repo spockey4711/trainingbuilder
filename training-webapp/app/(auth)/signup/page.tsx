@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export default function SignupPage() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations('auth.signup');
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,13 +28,13 @@ export default function SignupPage() {
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwörter stimmen nicht überein");
+      setError(t('passwordMismatch'));
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError("Passwort muss mindestens 6 Zeichen lang sein");
+      setError(t('passwordTooShort'));
       setLoading(false);
       return;
     }
@@ -66,29 +68,29 @@ export default function SignupPage() {
           <div className="flex justify-center mb-4">
             <Activity className="h-12 w-12 text-blue-600" />
           </div>
-          <CardTitle className="text-2xl">Konto erstellen</CardTitle>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
           <CardDescription>
-            Registriere dich für Training Webapp
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           {success ? (
             <div className="text-center py-4">
               <div className="text-green-600 dark:text-green-400 mb-2">
-                Konto erfolgreich erstellt!
+                {t('successMessage')}
               </div>
               <p className="text-sm text-gray-500">
-                Weiterleitung zum Dashboard...
+                {t('redirecting')}
               </p>
             </div>
           ) : (
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">E-Mail</Label>
+                <Label htmlFor="email">{t('email')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="deine@email.de"
+                  placeholder={t('emailPlaceholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -96,11 +98,11 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Passwort</Label>
+                <Label htmlFor="password">{t('password')}</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t('passwordPlaceholder')}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -108,11 +110,11 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Passwort bestätigen</Label>
+                <Label htmlFor="confirmPassword">{t('confirmPassword')}</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder={t('passwordPlaceholder')}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -126,15 +128,15 @@ export default function SignupPage() {
               )}
 
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Konto wird erstellt..." : "Registrieren"}
+                {loading ? t('signupButtonLoading') : t('signupButton')}
               </Button>
             </form>
           )}
 
           <div className="mt-4 text-center text-sm">
-            Bereits ein Konto?{" "}
+            {t('hasAccount')}{" "}
             <Link href="/login" className="text-blue-600 hover:underline">
-              Anmelden
+              {t('loginLink')}
             </Link>
           </div>
         </CardContent>

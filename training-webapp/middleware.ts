@@ -1,7 +1,19 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
+import { locales } from './i18n/request';
+
+// Create the intl middleware
+const intlMiddleware = createIntlMiddleware({
+  locales: locales,
+  defaultLocale: 'de',
+  localePrefix: 'as-needed'
+});
 
 export async function middleware(request: NextRequest) {
+  // Handle internationalization first
+  const intlResponse = intlMiddleware(request);
+
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -33,22 +45,26 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Get the pathname without locale prefix
+  const pathname = request.nextUrl.pathname;
+  const pathnameWithoutLocale = pathname.replace(/^\/(en|de)/, '') || '/';
+
   // Redirect to login if accessing protected routes without auth
-  if (!user && !request.nextUrl.pathname.startsWith('/login') && !request.nextUrl.pathname.startsWith('/signup') && request.nextUrl.pathname !== '/') {
+  if (!user && !pathnameWithoutLocale.startsWith('/login') && !pathnameWithoutLocale.startsWith('/signup') && pathnameWithoutLocale !== '/') {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 
   // Redirect to dashboard if accessing auth pages while logged in
-  if (user && (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/signup'))) {
+  if (user && (pathnameWithoutLocale.startsWith('/login') || pathnameWithoutLocale.startsWith('/signup'))) {
     const url = request.nextUrl.clone();
     url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 
   // Redirect root to dashboard if logged in, otherwise to login
-  if (request.nextUrl.pathname === '/') {
+  if (pathnameWithoutLocale === '/') {
     const url = request.nextUrl.clone();
     url.pathname = user ? '/dashboard' : '/login';
     return NextResponse.redirect(url);

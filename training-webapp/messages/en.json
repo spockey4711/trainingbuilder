@@ -1,0 +1,289 @@
+{
+  "common": {
+    "appName": "Training Webapp",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "confirm": "Confirm",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "submit": "Submit",
+    "minutes": "Minutes",
+    "hours": "Hours",
+    "days": "Days",
+    "weeks": "Weeks",
+    "months": "Months"
+  },
+  "sports": {
+    "swim": "Swim",
+    "bike": "Bike",
+    "run": "Run",
+    "hockey": "Hockey",
+    "gym": "Gym"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "workouts": "Workouts",
+    "calendar": "Calendar",
+    "periodization": "Periodization",
+    "metrics": "Metrics",
+    "notes": "Notes",
+    "plans": "Plans",
+    "analytics": "Analytics",
+    "zones": "Zones",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "description": "Sign in to your Training Webapp account",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "your@email.com",
+      "passwordPlaceholder": "••••••••",
+      "loginButton": "Sign In",
+      "loginButtonLoading": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create Account",
+      "description": "Sign up for Training Webapp",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "emailPlaceholder": "your@email.com",
+      "passwordPlaceholder": "••••••••",
+      "signupButton": "Sign Up",
+      "signupButtonLoading": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "successMessage": "Account created successfully!",
+      "redirecting": "Redirecting to dashboard..."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back",
+    "thisWeek": {
+      "title": "This Week",
+      "workouts": "Workouts",
+      "noWorkouts": "Start logging your training",
+      "keepGoing": "Keep going!"
+    },
+    "currentCycle": {
+      "title": "Current Cycle",
+      "notSet": "Not set",
+      "createCycle": "Create a training cycle"
+    },
+    "hrvToday": {
+      "title": "HRV Today",
+      "readiness": "Readiness",
+      "logMetrics": "Log your daily metrics"
+    },
+    "recentWorkouts": {
+      "title": "Recent Workouts",
+      "description": "Your latest training sessions",
+      "noWorkouts": "No workouts yet. Log your first workout!",
+      "logWorkout": "Log Workout"
+    },
+    "weekVolume": {
+      "title": "Week Volume",
+      "description": "Training volume by sport"
+    }
+  },
+  "workouts": {
+    "title": "Workouts",
+    "newWorkout": "New Workout",
+    "logWorkout": "Log Workout",
+    "editWorkout": "Edit Workout",
+    "deleteWorkout": "Delete Workout",
+    "noWorkouts": "No workouts found",
+    "form": {
+      "date": "Date",
+      "time": "Time",
+      "sportType": "Sport Type",
+      "duration": "Duration (minutes)",
+      "distance": "Distance (km)",
+      "pace": "Pace (min/km)",
+      "avgHeartRate": "Avg Heart Rate",
+      "avgPower": "Avg Power (W)",
+      "tss": "TSS",
+      "notes": "Notes",
+      "rpe": "RPE (1-10)",
+      "feeling": "How did you feel?",
+      "whatWentWell": "What went well?",
+      "whatToAdjust": "What to adjust?",
+      "physicalSensations": "Physical sensations",
+      "mentalNotes": "Mental notes",
+      "tags": "Tags (comma separated)"
+    },
+    "fields": {
+      "fieldTime": "Field Time (min)",
+      "drills": "Drills",
+      "sprints": "Sprints",
+      "exercises": "Exercises",
+      "addExercise": "Add Exercise",
+      "exerciseName": "Exercise Name",
+      "sets": "Sets",
+      "reps": "Reps",
+      "weight": "Weight (kg)"
+    }
+  },
+  "calendar": {
+    "title": "Calendar",
+    "week": "Week",
+    "previousWeek": "Previous Week",
+    "nextWeek": "Next Week",
+    "today": "Today",
+    "noWorkouts": "No workouts",
+    "restDay": "Rest Day",
+    "weekSummary": "Week Summary",
+    "totalWorkouts": "Total Workouts",
+    "totalDuration": "Total Duration",
+    "activeCycle": "Active Cycle"
+  },
+  "periodization": {
+    "title": "Periodization",
+    "newCycle": "New Cycle",
+    "editCycle": "Edit Cycle",
+    "deleteCycle": "Delete Cycle",
+    "noCycles": "No cycles found",
+    "form": {
+      "name": "Name",
+      "type": "Type",
+      "phase": "Phase",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "goals": "Goals",
+      "focus": "Focus",
+      "parentCycle": "Parent Cycle",
+      "selectParent": "Select cycle..."
+    },
+    "types": {
+      "macro": "Macro",
+      "meso": "Meso",
+      "micro": "Micro"
+    },
+    "phases": {
+      "base": "Base",
+      "build": "Build",
+      "peak": "Peak",
+      "taper": "Taper",
+      "recovery": "Recovery"
+    },
+    "progress": "Progress"
+  },
+  "metrics": {
+    "title": "Metrics",
+    "logMetrics": "Log Metrics",
+    "dailyMetrics": "Daily Metrics",
+    "trends": "Trends (30 Days)",
+    "noMetrics": "No metrics found",
+    "form": {
+      "date": "Date",
+      "hrv": "HRV",
+      "restingHeartRate": "Resting Heart Rate",
+      "sleepHours": "Sleep Hours",
+      "sleepQuality": "Sleep Quality (1-10)",
+      "stressLevel": "Stress Level (1-10)",
+      "readiness": "Readiness (1-10)",
+      "weight": "Weight (kg)",
+      "notes": "Notes"
+    },
+    "charts": {
+      "hrv": "HRV",
+      "readiness": "Readiness",
+      "sleepQuality": "Sleep Quality",
+      "stress": "Stress",
+      "average": "Average"
+    }
+  },
+  "notes": {
+    "title": "Training Notes",
+    "search": "Search notes...",
+    "filterBySport": "Filter by sport",
+    "filterByTag": "Filter by tag",
+    "allSports": "All Sports",
+    "noNotes": "No notes found",
+    "foundNotes": "notes found",
+    "rpe": "RPE",
+    "tags": "Tags"
+  },
+  "plans": {
+    "title": "Training Plans",
+    "newPlan": "New Plan",
+    "editPlan": "Edit Plan",
+    "deletePlan": "Delete Plan",
+    "applyToWeek": "Apply to Week",
+    "noPlans": "No plans found",
+    "form": {
+      "name": "Name",
+      "description": "Description",
+      "cycle": "Training Cycle",
+      "selectCycle": "Select cycle...",
+      "weekStructure": "Week Structure"
+    },
+    "apply": {
+      "title": "Apply Plan to Week",
+      "selectWeek": "Select Week",
+      "startDate": "Start Date",
+      "warning": "Warning: Existing workouts in this week will not be overwritten.",
+      "success": "Plan applied successfully!",
+      "error": "Error applying plan"
+    }
+  },
+  "analytics": {
+    "title": "Analytics",
+    "volume": {
+      "title": "Training Volume (12 Weeks)",
+      "weekly": "Weekly Volume",
+      "total": "Total"
+    },
+    "distribution": {
+      "title": "Sport Distribution",
+      "byTime": "By Time",
+      "byWorkouts": "By Workouts"
+    },
+    "load": {
+      "title": "Training Load",
+      "acute": "Acute Load (7 days)",
+      "chronic": "Chronic Load (42 days)",
+      "acwr": "ACWR",
+      "injuryRisk": "Injury Risk",
+      "low": "Low",
+      "optimal": "Optimal",
+      "elevated": "Elevated",
+      "high": "High"
+    },
+    "tss": {
+      "title": "TSS Trends",
+      "weekly": "Weekly"
+    },
+    "frequency": {
+      "title": "Training Frequency",
+      "workoutsPerWeek": "Workouts per week"
+    }
+  },
+  "zones": {
+    "title": "Training Zones",
+    "description": "Manage your training zone settings",
+    "heartRate": "Heart Rate Zones",
+    "power": "Power Zones",
+    "pace": "Pace Zones",
+    "notImplemented": "Zone management coming soon!",
+    "placeholder": "This page shows training zone information"
+  }
+}

@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Activity } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -17,6 +18,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const supabase = createClient();
+  const t = useTranslations('auth.login');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,19 +46,19 @@ export default function LoginPage() {
           <div className="flex justify-center mb-4">
             <Activity className="h-12 w-12 text-blue-600" />
           </div>
-          <CardTitle className="text-2xl">Willkommen zurück</CardTitle>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
           <CardDescription>
-            Melde dich bei deinem Training Webapp Konto an
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">E-Mail</Label>
+              <Label htmlFor="email">{t('email')}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="deine@email.de"
+                placeholder={t('emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -64,11 +66,11 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Passwort</Label>
+              <Label htmlFor="password">{t('password')}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="••••••••"
+                placeholder={t('passwordPlaceholder')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -82,14 +84,14 @@ export default function LoginPage() {
             )}
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Anmelden..." : "Anmelden"}
+              {loading ? t('loginButtonLoading') : t('loginButton')}
             </Button>
           </form>
 
           <div className="mt-4 text-center text-sm">
-            Noch kein Konto?{" "}
+            {t('noAccount')}{" "}
             <Link href="/signup" className="text-blue-600 hover:underline">
-              Registrieren
+              {t('signupLink')}
             </Link>
           </div>
         </CardContent>
