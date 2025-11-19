@@ -31,8 +31,7 @@ export async function getVolumeAnalytics(startDate?: string, endDate?: string) {
   const { data: workouts, error } = await query;
 
   if (error) {
-    console.error("Error fetching workouts for analytics:", error);
-    return { analytics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -147,8 +146,7 @@ export async function getVolumeByCycle(cycleId: string) {
     .order("date", { ascending: true });
 
   if (error) {
-    console.error("Error fetching workouts for cycle:", error);
-    return { analytics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -230,8 +228,7 @@ export async function getTrainingLoadMetrics(days: number = 42) {
     .order("date", { ascending: true });
 
   if (error) {
-    console.error("Error fetching workouts for load metrics:", error);
-    return { metrics: null };
+    return { error: error.message };
   }
 
   if (!workouts || workouts.length === 0) {
@@ -329,8 +326,7 @@ export async function getDetailedWorkoutAnalysis() {
     .limit(100);
 
   if (error) {
-    console.error("Error fetching detailed workouts:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };

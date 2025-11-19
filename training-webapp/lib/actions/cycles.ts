@@ -242,8 +242,7 @@ export async function getWorkoutsByCycle(cycleId: string, includeChildren: boole
     .order("date", { ascending: false });
 
   if (error) {
-    console.error("Error fetching workouts by cycle:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };

@@ -140,8 +140,7 @@ export async function getWorkouts() {
     .limit(50);
 
   if (error) {
-    console.error("Error fetching workouts:", error);
-    return { workouts: [] };
+    return { error: error.message };
   }
 
   return { workouts: workouts || [] };
