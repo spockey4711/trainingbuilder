@@ -23,8 +23,20 @@ const SPORT_LABELS: Record<string, string> = {
 export default async function AnalyticsPage() {
   // Get last 12 weeks of data
   const startDate = format(new Date(Date.now() - 12 * 7 * 24 * 60 * 60 * 1000), "yyyy-MM-dd");
-  const { analytics } = await getVolumeAnalytics(startDate);
-  const { metrics: loadMetrics } = await getTrainingLoadMetrics(42);
+  const { analytics, error: analyticsError } = await getVolumeAnalytics(startDate);
+  const { metrics: loadMetrics, error: metricsError } = await getTrainingLoadMetrics(42);
+
+  if (analyticsError || metricsError) {
+    return (
+      <div className="space-y-6">
+        <h1 className="text-3xl font-bold">Training Analytics</h1>
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-800 dark:border-red-800 dark:bg-red-900/20 dark:text-red-200">
+          <p className="font-semibold">Error loading analytics data</p>
+          <p className="text-sm mt-1">{analyticsError || metricsError}</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!analytics) {
     return (

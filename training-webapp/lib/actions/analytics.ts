@@ -19,6 +19,7 @@ export async function getVolumeAnalytics(startDate?: string, endDate?: string) {
   let query = supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .order("date", { ascending: true });
 
   if (startDate) {
@@ -142,6 +143,7 @@ export async function getVolumeByCycle(cycleId: string) {
   const { data: workouts, error } = await supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .eq("cycle_id", cycleId)
     .order("date", { ascending: true });
 
@@ -224,6 +226,7 @@ export async function getTrainingLoadMetrics(days: number = 42) {
   const { data: workouts, error } = await supabase
     .from("workouts")
     .select("*")
+    .eq("user_id", user.id)
     .gte("date", startDate)
     .order("date", { ascending: true });
 
@@ -322,6 +325,7 @@ export async function getDetailedWorkoutAnalysis() {
       *,
       workout_notes (*)
     `)
+    .eq("user_id", user.id)
     .order("date", { ascending: false })
     .limit(100);
 

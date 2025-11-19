@@ -135,6 +135,7 @@ export async function getWorkouts() {
       *,
       workout_notes (*)
     `)
+    .eq("user_id", user.id)
     .order("date", { ascending: false })
     .order("workout_time", { ascending: false, nullsLast: true })
     .limit(50);
