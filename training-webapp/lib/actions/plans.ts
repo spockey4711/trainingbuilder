@@ -108,7 +108,7 @@ export async function deleteTrainingPlan(planId: string) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Not authenticated" };
+    return;
   }
 
   const { error } = await supabase
@@ -118,10 +118,9 @@ export async function deleteTrainingPlan(planId: string) {
     .eq("user_id", user.id);
 
   if (error) {
-    return { error: error.message };
+    console.error("Error deleting training plan:", error);
+    return;
   }
 
   revalidatePath("/plans");
-
-  return { success: true };
 }

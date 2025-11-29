@@ -137,7 +137,7 @@ export async function getWorkouts() {
     `)
     .eq("user_id", user.id)
     .order("date", { ascending: false })
-    .order("workout_time", { ascending: false, nullsLast: true })
+    .order("workout_time", { ascending: false, nullsFirst: false })
     .limit(50);
 
   if (error) {
